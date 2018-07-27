@@ -15,5 +15,6 @@ namespace WebScraper.Models
     public partial class Table_1
     {
         public string Symbol { get; set; }
+        public string Price { get; set; }
     }
 }

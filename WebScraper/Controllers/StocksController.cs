@@ -43,7 +43,7 @@ namespace WebScraper.Controllers
                 username.SendKeys("seanscrap25");
                 username.Submit();
 
-                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
                 wait.Until(d => d.FindElement(By.Id("login-passwd")));
 
                 var password = driver.FindElement(By.Id("login-passwd"));
@@ -53,12 +53,14 @@ namespace WebScraper.Controllers
                 driver.Navigate().GoToUrl("https://finance.yahoo.com/portfolio/p_1/view/v1");
 
                 wait.Until(d => d.FindElement(By.Id("__dialog")));
-                var popup = driver.FindElement(By.XPath("//dialog[@id = '__dialog']/section/button"));
-                popup.Click();
+                //var popup = driver.FindElement(By.XPath("//dialog[@id = '__dialog']/section/button"));
+                //popup.Click();
 
                 var table = driver.FindElement(By.CssSelector("#main > section > section._64nqq > div.gIc8M > table"));
+                Console.WriteLine("potato");
                 foreach (var row in table.FindElements(By.TagName("tr")))
                 {
+                    Console.WriteLine("another potato");
                     foreach (var cell in row.FindElements(By.TagName("td")))
                     {
                         Console.WriteLine(cell.Text);
@@ -66,7 +68,7 @@ namespace WebScraper.Controllers
 
                 }
             }
-            return View(db.Table_1.ToList());
+            return RedirectToAction("Index");
         }
         // GET: Stocks/Details/5
         public ActionResult Details(string id)
