@@ -25,9 +25,16 @@ namespace WebScraper.Controllers
             return View(db.Table_1.ToList());
         }
 
-
         public ActionResult Scrape()
         {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Scrape([Bind(Include = "Symbol")] Table_1 table_1)
+        {
+
             {
                 // Create a new instance of the Chrome driver.
                 var options = new ChromeOptions();
@@ -63,6 +70,7 @@ namespace WebScraper.Controllers
                     Console.WriteLine("another potato");
                     foreach (var cell in row.FindElements(By.TagName("td")))
                     {
+               
                         Console.WriteLine(cell.Text);
                     }
 

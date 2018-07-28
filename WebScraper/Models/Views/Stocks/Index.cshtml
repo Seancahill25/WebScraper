@@ -8,6 +8,7 @@
 
 <p>
     @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Scrape", "Scrape")
 </p>
 <table class="table">
     <tr>
@@ -17,7 +18,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.ActionLink("Scrape", "Scrape", new { id = item.Symbol }) |
+            
             @Html.ActionLink("Edit", "Edit", new { id=item.Symbol }) |
             @Html.ActionLink("Details", "Details", new { id=item.Symbol }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.Symbol })
