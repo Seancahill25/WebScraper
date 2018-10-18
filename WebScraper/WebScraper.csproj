@@ -163,23 +163,23 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\StocksModel.Context.cs">
+    <Compile Include="Models\stock.cs">
+      <DependentUpon>StockModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StockModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>StocksModel.Context.tt</DependentUpon>
+      <DependentUpon>StockModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\StocksModel.cs">
+    <Compile Include="Models\StockModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>StocksModel.tt</DependentUpon>
+      <DependentUpon>StockModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\StocksModel.Designer.cs">
+    <Compile Include="Models\StockModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>StocksModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Table_1.cs">
-      <DependentUpon>StocksModel.tt</DependentUpon>
+      <DependentUpon>StockModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -192,27 +192,27 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\StocksModel.Context.tt">
+    <Content Include="Models\StockModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>StocksModel.edmx</DependentUpon>
-      <LastGenOutput>StocksModel.Context.cs</LastGenOutput>
+      <DependentUpon>StockModel.edmx</DependentUpon>
+      <LastGenOutput>StockModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\StocksModel.tt">
+    <Content Include="Models\StockModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>StocksModel.edmx</DependentUpon>
-      <LastGenOutput>StocksModel.cs</LastGenOutput>
+      <DependentUpon>StockModel.edmx</DependentUpon>
+      <LastGenOutput>StockModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Models\StocksModel.edmx">
+    <EntityDeploy Include="Models\StockModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>StocksModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>StockModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\StocksModel.edmx.diagram">
-      <DependentUpon>StocksModel.edmx</DependentUpon>
+    <Content Include="Models\StockModel.edmx.diagram">
+      <DependentUpon>StockModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -232,19 +232,19 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Models\Views\Web.config" />
-    <Content Include="Models\Views\_ViewStart.cshtml" />
-    <Content Include="Models\Views\Shared\Error.cshtml" />
-    <Content Include="Models\Views\Shared\_Layout.cshtml" />
-    <Content Include="Models\Views\Home\About.cshtml" />
-    <Content Include="Models\Views\Home\Contact.cshtml" />
-    <Content Include="Models\Views\Home\Index.cshtml" />
-    <Content Include="Models\Views\Stocks\Create.cshtml" />
-    <Content Include="Models\Views\Stocks\Delete.cshtml" />
-    <Content Include="Models\Views\Stocks\Details.cshtml" />
-    <Content Include="Models\Views\Stocks\Edit.cshtml" />
-    <Content Include="Models\Views\Stocks\Index.cshtml" />
-    <Content Include="Models\Views\Stocks\Scrape.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Stocks\Create.cshtml" />
+    <Content Include="Views\Stocks\Delete.cshtml" />
+    <Content Include="Views\Stocks\Details.cshtml" />
+    <Content Include="Views\Stocks\Edit.cshtml" />
+    <Content Include="Views\Stocks\Index.cshtml" />
+    <Content Include="Views\Stocks\Scrape.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

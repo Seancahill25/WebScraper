@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -15,14 +16,14 @@ namespace WebScraper.Controllers
 {
     public class StocksController : Controller
     {
-        private stock_portfolioEntities db = new stock_portfolioEntities();
+        private stock_portfolioEntities1 db = new stock_portfolioEntities1();
 
 
 
         // GET: Stocks
         public ActionResult Index()
         {
-            return View(db.Table_1.ToList());
+            return View(db.stocks.ToList());
         }
 
         public ActionResult Scrape()
@@ -32,7 +33,7 @@ namespace WebScraper.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Scrape([Bind(Include = "Symbol")] Table_1 table_1)
+        public ActionResult Scrape([Bind(Include = "Symbol")] stock Table_1)
         {
 
             {
@@ -62,20 +63,47 @@ namespace WebScraper.Controllers
                 wait.Until(d => d.FindElement(By.Id("__dialog")));
                 //var popup = driver.FindElement(By.XPath("//dialog[@id = '__dialog']/section/button"));
                 //popup.Click();
-
-                var table = driver.FindElement(By.CssSelector("#main > section > section._64nqq > div.gIc8M > table"));
-                Console.WriteLine("potato");
+                List<stock> scrapedData = new List<stock>();
+                var table = driver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody"));
+                var i = 1;
                 foreach (var row in table.FindElements(By.TagName("tr")))
                 {
-                    Console.WriteLine("another potato");
-                    foreach (var cell in row.FindElements(By.TagName("td")))
+                    stock tempStock = new stock
                     {
-               
-                        Console.WriteLine(cell.Text);
-                    }
+                        Symbol = driver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[1]/span/a")).Text,
+                        LastPrice = driver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[2]/span")).Text,
+                        Change = driver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[3]/span")).Text,
+                        PercentChg = driver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[4]/span")).Text,
+                        Currency = driver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[5]")).Text,
+                        MarketTime = driver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[6]/span")).Text,
+                        Volume = driver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[7]/span")).Text,
+                        AvgVol = driver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[9]")).Text,
+                        MarketCap = driver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[13]/span")).Text
+                    };
 
+                    scrapedData.Add(tempStock);
+                    i++; 
+                    
+                }
+                driver.Quit();
+                
+                using (SqlConnection connection = new SqlConnection(@"data source=SEAN-PC\SQL;initial catalog=stock_portfolio;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework"))
+
+                {
+                          
+                    connection.Open();
+                    foreach (var stock in scrapedData)
+                    {
+                        db.stocks.Add(stock);
+                    }
+                    
+                    db.SaveChanges();
+                    connection.Close();
+                  
                 }
             }
+           
+            
             return RedirectToAction("Index");
         }
         // GET: Stocks/Details/5
@@ -85,7 +113,7 @@ namespace WebScraper.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Table_1 table_1 = db.Table_1.Find(id);
+            stock table_1 = db.stocks.Find(id);
             if (table_1 == null)
             {
                 return HttpNotFound();
@@ -104,11 +132,11 @@ namespace WebScraper.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Symbol")] Table_1 table_1)
+        public ActionResult Create([Bind(Include = "Symbol")] stock table_1)
         {
             if (ModelState.IsValid)
             {
-                db.Table_1.Add(table_1);
+                db.stocks.Add(table_1);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -123,7 +151,7 @@ namespace WebScraper.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Table_1 table_1 = db.Table_1.Find(id);
+            stock table_1 = db.stocks.Find(id);
             if (table_1 == null)
             {
                 return HttpNotFound();
@@ -136,7 +164,7 @@ namespace WebScraper.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Symbol")] Table_1 table_1)
+        public ActionResult Edit([Bind(Include = "Symbol")] stock table_1)
         {
             if (ModelState.IsValid)
             {
@@ -154,7 +182,7 @@ namespace WebScraper.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Table_1 table_1 = db.Table_1.Find(id);
+            stock table_1 = db.stocks.Find(id);
             if (table_1 == null)
             {
                 return HttpNotFound();
@@ -167,8 +195,8 @@ namespace WebScraper.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Table_1 table_1 = db.Table_1.Find(id);
-            db.Table_1.Remove(table_1);
+            stock table_1 = db.stocks.Find(id);
+            db.stocks.Remove(table_1);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

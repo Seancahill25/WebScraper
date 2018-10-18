@@ -13,10 +13,10 @@ namespace WebScraper.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class stock_portfolioEntities : DbContext
+    public partial class stock_portfolioEntities1 : DbContext
     {
-        public stock_portfolioEntities()
-            : base("name=stock_portfolioEntities")
+        public stock_portfolioEntities1()
+            : base("name=stock_portfolioEntities1")
         {
         }
     
@@ -25,6 +25,6 @@ namespace WebScraper.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Table_1> Table_1 { get; set; }
+        public virtual DbSet<stock> stocks { get; set; }
     }
 }
