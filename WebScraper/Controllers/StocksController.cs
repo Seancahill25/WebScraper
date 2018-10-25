@@ -123,29 +123,6 @@ namespace WebScraper.Controllers
             return View(table_1);
         }
 
-        // GET: Stocks/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Stocks/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Symbol")] stock table_1)
-        {
-            if (ModelState.IsValid)
-            {
-                db.stocks.Add(table_1);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(table_1);
-        }
-
         // GET: Stocks/Edit/5
         public ActionResult Edit(string id)
         {

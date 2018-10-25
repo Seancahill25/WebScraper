@@ -4,24 +4,73 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Your Portfolio</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
     @Html.ActionLink("Scrape", "Scrape")
 </p>
 <table class="table">
     <tr>
-        <th></th>
+        <th>
+            Symbol
+        </th>
+        <th>
+            LastPrice
+        </th>
+        <th>
+            Change
+        </th>
+        <th>
+            PercentChg
+        </th>
+        <th>
+            Currency
+        </th>
+        <th>
+            MarketTime
+        </th>
+        <th>
+            Volume
+        </th>
+        <th>
+            AvgVol
+        </th>
+        <th>
+            MarketCap
+        </th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            
-            @Html.ActionLink("Edit", "Edit", new { id=item.Symbol }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Symbol }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Symbol })
+            @Html.DisplayFor(modelItem => item.Symbol)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Change)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PercentChg)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Currency)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MarketTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Volume)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AvgVol)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MarketCap)
+        </td>
+        <td>
+            <a href=" https://finance.yahoo.com/quote/@item.Symbol">Details</a>
         </td>
     </tr>
 }
