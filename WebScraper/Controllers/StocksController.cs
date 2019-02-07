@@ -62,25 +62,26 @@ namespace WebScraper.Controllers
 
                 driver.Navigate().GoToUrl("https://finance.yahoo.com/portfolio/p_1/view/v1");
 
-                wait.Until(d => d.FindElement(By.Id("__dialog")));
+                wait.Until(d => d.FindElement(By.Id("pf-detail-table")));
                 //var popup = driver.FindElement(By.XPath("//dialog[@id = '__dialog']/section/button"));
                 //popup.Click();
                 List<stock> scrapedData = new List<stock>();
-                var table = driver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody"));
+                var table = driver.FindElement(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody"));
                 var i = 1;
                 foreach (var row in table.FindElements(By.TagName("tr")))
                 {
                     stock tempStock = new stock
                     {
-                        Symbol = driver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[1]/span/a")).GetAttribute("innerText"),
-                        LastPrice = driver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[2]/span")).GetAttribute("innerText"),
-                        Change = driver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[3]/span")).GetAttribute("innerText"),
-                        PercentChg = driver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[4]/span")).GetAttribute("innerText"),
-                        Currency = driver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[5]")).GetAttribute("innerText"),
-                        MarketTime = driver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[6]/span")).GetAttribute("innerText"),
-                        Volume = driver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[7]/span")).GetAttribute("innerText"),
-                        AvgVol = driver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[9]")).GetAttribute("innerText"),
-                        MarketCap = driver.FindElement(By.XPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[13]/span")).GetAttribute("innerText")
+                        //*[@id="pf-detail-table"]/div[1]/table/tbody/tr[1]/td[4]/span                              
+                        Symbol = driver.FindElement(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[" + i + "]/td[1]/a")).GetAttribute("innerText"),
+                        LastPrice = driver.FindElement(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[" + i + "]/td[2]/span")).GetAttribute("innerText"),
+                        Change = driver.FindElement(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[" + i + "]/td[3]")).GetAttribute("innerText"),
+                        PercentChg = driver.FindElement(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[" + i + "]/td[4]")).GetAttribute("innerText"),
+                        Currency = driver.FindElement(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[" + i + "]/td[5]")).GetAttribute("innerText"),
+                        MarketTime = driver.FindElement(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[" + i + "]/td[6]")).GetAttribute("innerText"),
+                        Volume = driver.FindElement(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[" + i + "]/td[7]/span")).GetAttribute("innerText"),
+                        AvgVol = driver.FindElement(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[" + i + "]/td[9]")).GetAttribute("innerText"),
+                        MarketCap = driver.FindElement(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[" + i + "]/td[13]/span")).GetAttribute("innerText")
                     };
 
                     scrapedData.Add(tempStock);
