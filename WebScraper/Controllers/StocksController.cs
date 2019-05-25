@@ -18,9 +18,6 @@ namespace WebScraper.Controllers
     {
         private stock_portfolioEntities1 db = new stock_portfolioEntities1();
 
-
-
-        // GET: Stocks
         public ActionResult Index()
         {
             return View(db.stocks.ToList());
@@ -63,8 +60,7 @@ namespace WebScraper.Controllers
                 driver.Navigate().GoToUrl("https://finance.yahoo.com/portfolio/p_1/view/v1");
 
                 wait.Until(d => d.FindElement(By.Id("pf-detail-table")));
-                //var popup = driver.FindElement(By.XPath("//dialog[@id = '__dialog']/section/button"));
-                //popup.Click();
+            
                 List<stock> scrapedData = new List<stock>();
                 var table = driver.FindElement(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody"));
                 var i = 1;
@@ -72,7 +68,6 @@ namespace WebScraper.Controllers
                 {
                     stock tempStock = new stock
                     {
-                        //*[@id="pf-detail-table"]/div[1]/table/tbody/tr[1]/td[4]/span                              
                         Symbol = driver.FindElement(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[" + i + "]/td[1]/a")).GetAttribute("innerText"),
                         LastPrice = driver.FindElement(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[" + i + "]/td[2]/span")).GetAttribute("innerText"),
                         Change = driver.FindElement(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[" + i + "]/td[3]")).GetAttribute("innerText"),
